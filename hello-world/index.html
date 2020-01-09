@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>VueJS</title>
+	<link rel="stylesheet" href="">
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- Can access all properties in the data and methods property, don't have to do data.greeting -->
+		<!-- Can only use curly braces in places where you'd normally use text -->
+		<!-- So to to bind the value of link to the anchor tag, you use the directive v-bind-->
+		<!-- v-once makes sure that the item is only rendered once, and not changed -->
+		<p v-once>{{ greeting }} <a :href="link">Google</a></p>
+		<!-- to render inner html -->
+		<p v-html='finishedLink'></p>
+		<!-- To bind the changeGreeting method the the textbox  -->
+		<input type="text" v-on:input="changeGreeting"></input>
+		<!-- Listening to a Click Event -->
+		<!-- Has to be named event to access the default JS event -->
+		<button v-on:click="increase(2, $event)">Click Me</button>
+		<p>{{ counter }}</p>
+		<!-- Accessing x, y coordinates of the click event -->
+		<p @mousemove="updateCoordinates">
+			Coordinate: {{ x }} // {{ y }} 
+			<!-- Event modifier  -->
+			- <span v-on:mousemove.stop>DEAD SPOT</span>
+		</p>
+		<!-- Listening to Key Events -->
+		<!-- Method will get called if you enter "Enter" or space -->
+		<input type="text" v-on:keyup.enter.space="alertMe"></input>
+		<!-- Can also use simple javascript code -->
+		<!-- <p>{{ counter*2 > 20? 'Greater than 10' : 'Smaller than 10' }}</p> -->
+		<!-- Two way data binding, changing name on html or instance gets reflected in both places -->
+		<input type="text" v-model="name">
+		<p>{{ name }}</p>
+		<p>{{ result() }} || {{ output }}</p>
+
+	</div>
+	<script>
+	// You may of course also outsource this script code into a separate file (e.g. app.js) and simply import this file here
+		new Vue({
+			// Connect this to the app element
+			el: '#app',
+			data: {
+				greeting: 'Hello World!', // Initial value of greeting
+				link: 'https://google.com',
+				finishedLink: '<a href="https://www.youtube.com">YouTube</a>',
+				counter: 0,
+				x: 0,
+				y: 0,
+				name
+			},
+			computed: {
+				// View JS updates the page whenever one of its data properties changes
+				// It then reruns all the methods
+				// This method is only called when the counter itself changes
+				// Called like this: <p>{{ output }}</p> on the DOM
+				output: function() {
+					console.log('Computed')
+					return this.counter > 5? 'Greater than 5': 'Smaller Than 5'
+				}
+			},
+			// Function is called when the value of data object counter changes
+			// Computed properties can't run async, but watch can
+			watch: {
+				counter: function(value) {
+					var vm = this //this isnt available inside the callback
+					setTimeout(function() {
+						vm.counter = 0;
+					}, 2000)
+				}
+			},
+			methods: {
+				// All v-on methods give you access to the event 
+				changeGreeting: function(event) {
+					this.greeting = event.target.value; // Function to change the value of greeting
+				},
+				// Pass your own argument + the default event
+				increase: function(step, event) {
+					this.counter += step;
+				},
+				updateCoordinates: function(event) {
+					this.x = event.clientX;
+					this.y = event.clientY;
+				},
+				alertMe: function() {
+					alert('Alert')
+				},
+				result: function() {
+					console.log('Method')
+					return this.counter > 5? 'Greater than 5': 'Smaller Than 5'
+				}
+			}
+		})
+	</script>
+</body>
+</html>
