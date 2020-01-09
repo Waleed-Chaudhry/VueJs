@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Conditionals</title>
+	<link rel="stylesheet" href="">
+	<script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- If show is true, you load this -->
+        <!-- All elements including the span inside the p are added to the DOM or removed -->
+        <!-- Element isn't hidden, it's completely removed from the DOM -->
+        <p v-if="show">You can see me! <span>Hello!</span></p>
+        <!-- v-else automatically refers to the latest v-if above it -->
+        <p v-else>Now you see me!</p>
+        <!-- Since v-if can only be attached to one element, think of template as a React.Fragment -->
+        <!-- We can conditionally display multiple elements without having to create a new div -->
+        <!-- The template itself isn't show on the DOM -->
+        <template v-if="show">
+          <h1>Heading</h1>
+          <p>Inside a template</p>
+        </template>
+        <!-- v-show simply sets the css property display: none, but keeps the element on the DOM -->
+        <p v-show="show">Do you also see me?</p>
+        <!-- Button to switch to toggle the value of show -->
+        <button @click="show = !show">Switch</button>
+      </div>
+
+      <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true
+            }
+        });
+      </script>
+</body>
+</html>
