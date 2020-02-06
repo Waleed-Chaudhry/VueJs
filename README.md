@@ -16,3 +16,8 @@ npm install
 npm run dev // Start the development server
 npm run build // Create build.js inside the dist folder for deployment
 ```
+
+#### Styling
+* Add scoped to the style to make it apply to just your component
+* On the rendered DOM, Vue adds data-v-something attribute to add each of your scoped component
+* v-bind can be abbreivated as :
