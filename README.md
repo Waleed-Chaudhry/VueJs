@@ -21,3 +21,5 @@ npm run build // Create build.js inside the dist folder for deployment
 * Add scoped to the style to make it apply to just your component
 * On the rendered DOM, Vue adds data-v-something attribute to add each of your scoped component
 * v-bind can be abbreivated as :
+* When passing an object or array from the parent to the child, you're passing the pointer to the memory location, but when you're passing in a primitive such as a string, you're passing it's value, not the memory location. Changing an object in the child will also change it in the parent, but that's not the case with a primitive such as a string
+* Can't communicate between siblings. Have to pass the data back to the parent, and then the parent passes it to the child
