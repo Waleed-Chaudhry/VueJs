@@ -1,4 +1,5 @@
 components/node_modules
 vue-cli/node_modules
 forms/node_modules
+Vuex/node_modules
 .vscode
