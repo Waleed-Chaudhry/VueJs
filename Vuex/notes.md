@@ -17,3 +17,6 @@ npm install --save vuex
 ### Mutations
 * Mutators are for when we need to change the value of a state variable in the store
 * You can then use mapMutations inside the component (AnotherCounter.vue)
+* Mutations have to be sync, so in order to call async methods in mutators, we use actions
+
+### Actions
